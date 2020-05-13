@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Input, Empty } from 'antd';
+import { Layout, Input, Empty, Spin } from 'antd';
 import MovieDrawer from './MovieDrawer';
 import ArctistDrawer from './ArctistDrawer';
 import MovieDetailModal from './MovieDetailModal';
@@ -105,9 +105,8 @@ export default function Main({ history }) {
                 style={{ width: '100%', height: '50px', marginBottom: '20px', marginTop: '30px' }}
             />
             <h4 style={{ color: '#FFFFFF' }}>
-                {movies.length > 0 ? movies.length === 1 ? '1 filme' : `${movies.length} filmes` : '0 filmes'}
+                {movies.length > 0 ? movies.length === 1 ? '1 resultado' : `${movies.length} resultados` : null}
             </h4>
-
 
             {movies.length > 0 ? (
                 <ul>
@@ -127,22 +126,18 @@ export default function Main({ history }) {
                 </ul>
 
             ) : (
-                    <Layout style={{ marginTop: '20%', background: '#243447' }}>
-                        <Empty
-                            description='Ainda não existem filmes cadastrados'
-                        />
-                    </Layout>
+                    loading
+                        ? <Spin />
+                        : <Layout style={{ marginTop: '20%', background: '#243447' }}>
+                            <Empty
+                                description='Ainda não existem filmes cadastrados'
+                            />
+                        </Layout>
                 )}
 
             <MovieDrawer visible={visible1} showDrawer={showMovieDrawer} closeDrawer={closeMovieDrawer} />
             <ArctistDrawer visible={visible2} showDrawer={showArctistDrawer} closeDrawer={closeArctistDrawer} />
             <MovieDetailModal movie={movieSelected} visible={visible3} closeModal={() => setVisible3(false)} />
-
-            <Footer style={{ textAlign: 'center', marginTop: '50px', background: '#243447' }}>
-                <h4 style={{ color: '#FFFFFF' }}>
-                    Movie Catalog ©2020 Created by Axel Andrade
-                </h4>
-            </Footer>
 
             <Container>
                 {showOptions ?
@@ -168,6 +163,11 @@ export default function Main({ history }) {
                     <PlusOutlined />
                 </ButtonFloating>
             </Container>
+            {/* <Footer style={{ textAlign: 'center', marginTop: '50px', background: '#243447' }}>
+                <h4 style={{ color: '#FFFFFF', fontSize: 10 }}>
+                    Movie Catalog ©2020 Created by Axel Andrade
+                </h4>
+            </Footer> */}
         </Layout>
     )
 
