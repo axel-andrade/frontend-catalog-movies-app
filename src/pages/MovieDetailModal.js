@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Layout, List, Typography, Divider, Avatar, Drawer } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import utils from '../utils';
 import api from '../services/api';
 import MovieDrawerEdit from './MovieDrawerEdit';
 import placeholder_poster from '../assets/placeholder_poster.jpg';
-import utils from '../utils';
 
 
 export default function MovieDetailModal({ movie, visible, closeModal }) {
@@ -102,8 +102,8 @@ export default function MovieDetailModal({ movie, visible, closeModal }) {
                         {generateListItem('Idioma:   ', movie.language)}
                         {generateListItem('Duração:   ', JSON.stringify(movie.duration_minutes))}
                         {generateListItem('Classificação:   ', movie.age_range === "free" ? "Livre" : movie.age_range)}
-                        {generateListItem('Data de lançamento:   ', movie.release_date)}
-                        {generateListItem('Ano de produção:   ', movie.release_date)}
+                        {generateListItem('Data de lançamento:   ', utils.formatDate(new Date(movie.release_date)))}
+                        {generateListItem('Ano de produção:   ', JSON.stringify(Math.abs(movie.year)))}
                     </List>
                     <Divider orientation="left" style={{ fontWeight: 'bold' }}>Direção</Divider>
                     {movie.directors && movie.directors.length > 0 ?
