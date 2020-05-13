@@ -68,13 +68,13 @@ export default function MovieDrawer({ visible, showDrawer, closeDrawer }) {
 
     const saveArctists = async (movie_id) => {
         const endpoint = `/movies/${movie_id}`;
-        if (actors.length > 0) {
+        if (actors.length > 0 && selectActors.length > 0) {
             await api.post(endpoint + '/actors', { ids: selectActors });
         }
-        if (directors.length > 0) {
+        if (directors.length > 0 && selectDirectors.length > 0) {
             await api.post(endpoint + '/directors', { ids: selectDirectors });
         }
-        if (writers.length > 0) {
+        if (writers.length > 0 && selectWriters.length > 0) {
             await api.post(endpoint + '/writers', { ids: selectWriters });
         }
     };
